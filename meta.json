@@ -1,0 +1,31 @@
+{
+  "prompts": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "label": "Project name"
+    },
+    "version": {
+      "type": "string",
+      "required": true,
+      "label": "The version of the package",
+      "default": "0.1.0"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "label": "Project description",
+      "default": "A Vue.js project"
+    },
+    "author": {
+      "type": "string",
+      "label": "Author"
+    },
+    "siteRoot": {
+      "type": "string",
+      "required": true,
+      "label": "Site root address (for example: localhost:8081)"
+    }
+  },
+  "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm run serve"
+}
