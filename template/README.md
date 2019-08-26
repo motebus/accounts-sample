@@ -1,4 +1,4 @@
-# Hello world template
+# Connect Accounts template
 
 ## Project setup
 ```
