@@ -32,10 +32,41 @@ Vue.use(gitpage);
 
 Vue.config.productionTip = false;
 
+Vue.prototype.getTime = function () {
+  var d = new Date();
+  var timestring =
+    ("0" + d.getHours()).slice(-2)
+    + ":" + ("0" + d.getMinutes()).slice(-2)
+    + ":" + ("0" + d.getSeconds()).slice(-2)
+    + ":" + ("0" + d.getMilliseconds()).slice(-3);
+  return timestring;
+};
+
+Vue.prototype.makeId = function (length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
+Vue.prototype.isJson = function (str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
 Vue.prototype.$mms = webmms({
   EiToken: getCookie("EiToken") || "",
   SToken: getCookie("SToken") || ""
 });
+
+
 
 
 const DEFAULT_TITLE = 'YpCloud';
