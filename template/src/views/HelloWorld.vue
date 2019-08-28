@@ -1,5 +1,6 @@
 <template >
       <v-layout justify-cente align-center column>
+          <header-state></header-state>
           <v-avatar size="255" tile="tile"><img :src="icon" /></v-avatar>
           <div class="hello__title text-xs-center mb-3">
               <p>Hello</p>
@@ -12,6 +13,7 @@
 
 <script>
 import icon from "@/assets/gitpage_icon.png";
+import HeaderState from '@/components/HeaderLogin';
 
 export default {
   name: "hello",
@@ -24,6 +26,9 @@ export default {
       ],
       params: null
     };
+  },
+  components : {
+    HeaderState  
   },
   computed: {
     tableParams() {
