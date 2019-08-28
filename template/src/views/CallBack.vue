@@ -93,7 +93,7 @@ export default {
                 }else if(result.ErrMsg == 'OK'){
                   result.result.expiresIn = 60;
                   this.$store.dispatch('login', result.result);
-                  this.$router.push("browser");
+                  this.$router.push("hello");
                 }
             }
 
