@@ -1,5 +1,6 @@
 <template >
       <v-layout justify-cente align-center column>
+          <header-state></header-state>
           <v-avatar size="255" tile="tile"><img :src="icon" /></v-avatar>
           <div class="hello__title text-xs-center mb-3">
               <p>Hello</p>
@@ -42,6 +43,9 @@ export default {
           UToken: ''
       },
     };
+  },
+  components : {
+    HeaderState
   },
   computed: {
     tableParams() {

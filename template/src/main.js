@@ -29,6 +29,8 @@ Vue.prototype.makeId = function(length){
   return result;
 };
 
+
+
 const DEFAULT_TITLE = 'YpCloud';
 router.afterEach((to, from) => {
     document.title = to.meta.title || DEFAULT_TITLE;
