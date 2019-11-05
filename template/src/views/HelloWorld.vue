@@ -15,6 +15,7 @@
 import icon from "@/assets/gitpage_icon.png";
 import { set as setCookie, get as getCookie, remove as removeCookie } from "es-cookie";
 import webmms from "webmms-client";
+import HeaderState from '@/components/HeaderLogin';
 import conf from '@/config/config';
 
 export default {
