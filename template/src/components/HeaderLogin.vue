@@ -1,50 +1,35 @@
 <template>
   <ul class="user_state">
-    <!-- <li v-if="!auth">
-        <router-link to="/register">Sign Up</router-link>
-    </li>
-    <li v-if="!auth">
-        <router-link to="/login">Sign In</router-link>
-    </li> -->
     <li v-if="auth">
         <v-menu
             v-model="menu"
             transition="slide-x-transition"
             :close-on-content-click="false"
             :nudge-width="200"
+            :nudge-right="50"
             offset-y
             bottom
           >
       <template v-slot:activator="{ on }">
-         <!-- <v-btn class="user_btn" light small flat v-on="on">
-            {{user.FirstName}} {{user.LastName}}
-            <v-icon right dark>person</v-icon>
-          </v-btn> -->
           <v-btn class="user_btn_fab" fab light small v-on="on">
               <v-icon>person</v-icon>
           </v-btn>
       </template>
-
       <v-card>
         <v-list>
-          <v-list-tile avatar>
-            <!-- <v-list-tile-avatar>
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
-            </v-list-tile-avatar> -->
-            <v-list-tile-content>
-              <v-list-tile-title>{{user.UserName}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{user.FirstName}} {{user.LastName}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-
-          </v-list-tile>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>{{user.UserName}}</v-list-item-title>
+              <v-list-item-subtitle>{{user.FirstName}} {{user.LastName}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
-
         <v-divider></v-divider>
-
         <v-card-actions>
           <v-spacer></v-spacer>
-
-          <v-btn color="primary" class="user_btn" small outline flat @click="onLogout">Logout</v-btn>
+          <v-btn color="primary" class="user_btn" small outlined  @click="onLogout">
+            Logout
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>
@@ -72,17 +57,16 @@ export default {
     methods: {
       onLogout() {
         this.$store.dispatch('logout');
-
-        //this.$router.push("login");
       }
     }
 }
 </script>
 <style scoped>
 .user_state{
-    position: absolute;
+    /* position: absolute;
     right: 0;
-    top: 0;
+    top: 0; */
+    list-style: none;
 }
 .user_btn{
   text-transform: unset;
