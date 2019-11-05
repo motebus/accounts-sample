@@ -1,21 +1,44 @@
 <template>
-    <div class="loading" v-if="loading">
-        <v-layout align-center justify-center column fill-height>
-          <p class="loading_text">Please wait for authentication...</p>
-          <v-progress-circular :size="35" :width="3" color="grey" indeterminate >
-              </v-progress-circular>
-        </v-layout>
-      </div>
+    <div class="fill-height">
+        <v-container class="fill-height" fluid :v-if="loading">
+            <v-row justify="center" align-content="center" align="center" class="fill-height">
+                <v-col  >
+                  <p class="loading_text">Please wait for authentication...</p>
+                  <v-progress-circular :size="35" :width="3" color="grey" indeterminate >
+                  </v-progress-circular>
+                </v-col>
+            </v-row>
+        </v-container>
+         <v-snackbar
+            v-model="errorLoading"
+            color="info"
+            :timeout="0"
+            :top="true"
+          >
+            {{ errorMsg }}
+            <v-btn
+              dark
+              text
+              @click="errorLoading = false"
+            >
+              Close
+            </v-btn>
+          </v-snackbar>
+    </div>
+
 </template>
 <script>
-import webmms from "webmms";
+import webmms from "webmms-client";
 import { set as setCookie, get as getCookie, remove as removeCookie } from "es-cookie";
 import { setTimeout } from 'timers';
+import conf from '@/config/config';
 
 export default {
  data() {
     return {
       loading: true,
+      errorMsg: '',
+      errorLoading: false,
       yp:{
         ddn: 'UC',
         topic: '',
@@ -51,6 +74,7 @@ export default {
   methods : {
      startMMS(){
           this.mms =  webmms({
+            wsurl: conf.wsurl,
             EiToken: this.oauthParams.eitoken || "",
             SToken: this.oauthParams.stoken || ""
           });
@@ -71,8 +95,9 @@ export default {
                   func: func,
                   payload: []
               });
+              console.log(res);
           } catch (error) {
-
+              console.log(error);
           }
           this.loading = false;
           this.isLoading = false;
@@ -91,9 +116,10 @@ export default {
                     this.errorLoading = true;
                     this.errorMsg = result.ErrMsg;
                 }else if(result.ErrMsg == 'OK'){
-                  result.result.expiresIn = 60;
-                  this.$store.dispatch('login', result.result);
-                  this.$router.push("browser");
+                  this.errorLoading = false;
+                  result.UserInfo.expiresIn = 60;
+                  this.$store.dispatch('login', result.UserInfo);
+                  this.$router.push("hello");
                 }
             }
 
@@ -107,7 +133,7 @@ export default {
                 this.webmmsOptions.SToken = reply.result.SToken;
                 this.webmmsOptions.UToken = reply.result.UToken;
                 if(this.eiInfo.eiName == ''){
-                  this.eiInfo.eiName = reply.result.EiName ? reply.result.EiName : 'urt' + this.makeId(5);
+                  this.eiInfo.eiName = reply.result.EiName ? reply.result.EiName : 'jbSIGN' + this.makeId(5);
                 }
                  if(this.eiInfo.eiTag == ''){
                   this.eiInfo.eiTag = reply.result.EiTag ? reply.result.EiTag : '';
@@ -122,7 +148,9 @@ export default {
             console.log('regtoCenter: %s', reply.ErrMsg);
             this.mmsReady = true;
             this.error = false;
-
+            let deviceInfo = {"DDN":this.eiInfo.ddn,"EiOwner":"","EiName":this.eiInfo.eiName,"EiType":".web","EiTag":this.eiInfo.eiTag,"EiLoc":""};
+             let result = await this.mms.setDeviceInfo(deviceInfo);
+             console.log('SetDevice reply=%s', JSON.stringify(result));
             this.login();
         });
 

@@ -24,7 +24,8 @@
     "siteRoot": {
       "type": "string",
       "required": true,
-      "label": "Site root address (for example: localhost:8081)"
+      "label": "Site root address (for example: localhost:8083)",
+      "default": "localhost:8083"
     }
   },
   "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm run serve"

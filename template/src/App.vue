@@ -18,7 +18,6 @@ export default {
 };
 </script>
 <style lang="sass">
-@import 'reset-css';
 
 body
   overflow-x: hidden
